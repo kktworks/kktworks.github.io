@@ -2,8 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="style/style.css"/>
 <title>kktworks</title>
+<link rel="stylesheet" type="text/css" href="style/style.css"/>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="style/iwas_source.css" />
+<style>
+pre.prettyprint {
+margin:0px;
+}
+</style>
 </head>
 <body>
     <a href="resources/workspace_20201125a.zip" download="workspace_20201125a.zip">Spring Bootで始めるWebアプリケーション開発入門　掲載ソースリスト(2020/11/25)</a>
@@ -13,9 +20,9 @@
 		<p>■2020/11/25：ソースリストを一部訂正しました。訂正箇所は演習問題の実装例Todolist7だけです。</p>
     <hr>
 		<p>■2020/11/21 補足：ModelAndViewを使ったredirect方法</p>
-		<p>&nbsp;&nbsp;【リスト8-7】createTodo()では、次画面を文字列で指定するためModelAndViewをModelへ変更しました。これとは別にリダイレクト先をModelAndView#setViewName()の引数にする方法もあります。この場合、【リスト8-7】は以下のようになります。
+		<p>【リスト8-7】createTodo()では、次画面を文字列で指定するためModelAndViewをModelへ変更しました。これとは別にリダイレクト先をModelAndView#setViewName()の引数にする方法もあります。この場合、【リスト8-7】は以下のようになります。
 		<div class="border_1">
-<pre>
+<pre class="prettyprint">
     // ToDo追加処理(Todolist2で追加したものをTodolist3で改善)
     @PostMapping("/todo/create")
     public ModelAndView createTodo(@ModelAttribute @Validated TodoData todoData, 
