@@ -13,7 +13,7 @@ margin:0px;
 </style>
 </head>
 <body>
-    <a href="resources/workspace_20201219.zip" download="workspace_20201219.zip">Spring Bootで始めるWebアプリケーション開発入門　掲載ソースリスト(2020/12/19)</a>
+    <a href="resources/workspace_20201222.zip" download="workspace_20201222.zip">Spring Bootで始めるWebアプリケーション開発入門　掲載ソースリスト(2020/12/22)</a>
     <p>→演習問題の実装例はTodolist7です。</p>
     <p>問い合わせ先：    <a href="mailto:kktworks@gmail.com">kktworks@gmail.com</a></p>
     <hr>
@@ -54,16 +54,16 @@ margin:0px;
         //}
         
         //■訂正後
-        boolean isAllDoubleSpace = true;
         String title = todoData.getTitle();
-        if (title != null) {
+        if (title != null && !title.equals("")) {
+            boolean isAllDoubleSpace = true;
             for (int i = 0; i < title.length(); i++) {
                 if (title.charAt(i) != '　') {
                     isAllDoubleSpace = false;
                     break;
                 }
             }
-            if(isAllDoubleSpace) {
+            if (isAllDoubleSpace) {
                 FieldError fieldError = new FieldError(
                     result.getObjectName(),
                     "title",
@@ -72,7 +72,6 @@ margin:0px;
                 ans = false;
             }
         }
-
 </pre>
 		</div>
     <hr>
