@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>kktworks</title>
+<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../style/iwas_source.css" />
+<style>
+pre.prettyprint {
+margin:0px;
+}
+</style>
+</head>
+<body>
+    <a href="resources/workspace_20201222.zip" download="workspace_20201222.zip">Spring Bootで始めるWebアプリケーション開発入門　掲載ソースリスト(2020/12/22)</a>
+    <p>→演習問題の実装例はTodolist7です。</p>
+    <p>問い合わせ先：<a href="mailto:kktworks@gmail.com">kktworks@gmail.com</a></p>
+    <hr>
+		<p>■2020/12/19 訂正：<br>
+11.3 動的クエリ結果のページング&nbsp;&gt;&nbsp;【リスト11-8】src/main/resources/templates/todoList.html(step2;一部抜粋)<br>
+検索条件に該当するToDoが無かった場合もページリンクを表示しないようにするため、以下のように訂正します。
+<p>
+		<div class="border_1">
+<pre class="prettyprint">
+  &lt;div th:if="${todoPage != null>&lt!-- ① -->
+  ↓
+  &lt;div th:if="${todoPage != null && #lists.size(todoList) != 0}">&lt!-- ① -->
+　または
+  &lt;div th:if="${todoList != null && #lists.size(todoList) != 0}">&lt!-- ① -->
+</pre>
+</div>
+#listsはTymeleafのリスト用のユーティリティオブジェクトです。size()は引数の要素数を返します。検索条件に該当するToDoがない場合、todoistは0件なので、これでチェックできます。todoListだけをチェックする後者の記述がシンプルで良いように思います。
+    <hr>
+		<p>■2020/12/19 訂正：<br>7.3 サービスクラス&nbsp;&gt;&nbsp;【リスト7-3】com.example.todolist.service.TodoService.java</br>
+		件名が全角スペースだけかどうかのチェック処理で余分なエラーメッセージを作成していました。以下のようにすれば解消されます。</p>
+		<div class="border_1">
+<pre class="prettyprint">
+        // 件名が全角スペースだけで構成されていたらエラー
+        //■訂正前
+        //String title = todoData.getTitle();
+        //if (title != null) {
+        //    for (int i = 0; i < title.length(); i++) {
+        //        if (title.charAt(i) != '　') {
+        //            break;
+        //        }
+        //        FieldError fieldError = new FieldError(
+        //            result.getObjectName(),
+        //            "title",
+        //            "件名が全角スペースです");
+        //        result.addError(fieldError);
+        //        ans = false;
+        //    }
+        //}
+        
+        //■訂正後
+        String title = todoData.getTitle();
+        if (title != null && !title.equals("")) {
+            boolean isAllDoubleSpace = true;
+            for (int i = 0; i < title.length(); i++) {
+                if (title.charAt(i) != '　') {
+                    isAllDoubleSpace = false;
+                    break;
+                }
+            }
+            if (isAllDoubleSpace) {
+                FieldError fieldError = new FieldError(
+                    result.getObjectName(),
+                    "title",
+                    "件名が全角スペースです");
+                result.addError(fieldError);
+                ans = false;
+            }
+        }
+</pre>
+		</div>
+    <hr>
+
+		<p>■2020/12/08：不要ファイルを削除してサイズ削減。ソースリストに変更はありません。</p>
+    <hr>
+		<p>■2020/11/25：ソースリストを一部訂正しました。訂正箇所は演習問題の実装例Todolist7だけです。</p>
+    <hr>
+		<p>■2020/11/21 補足：ModelAndViewを使ったredirect方法</p>
+		<p>8.5 PRG(Post-Redirect-Get)パターン&nbsp;&gt;&nbsp;【リスト8-8】Todolist3のTodoListController.java#createTodo()では、次画面を文字列で指定するためModelAndViewをModelへ変更しました。これとは別にリダイレクト先をModelAndView#setViewName()の引数にする方法もあります。この場合、【リスト8-8】は以下のようになります。
+		<div class="border_1">
+<pre class="prettyprint">
+    // ToDo追加処理(Todolist2で追加したものをTodolist3で改善)
+    @PostMapping("/todo/create")
+    public ModelAndView createTodo(@ModelAttribute @Validated TodoData todoData, 
+                                   BindingResult result,
+                                   ModelAndView mv) {
+        // エラーチェック
+        boolean isValid = todoService.isValid(todoData, result);
+        if (!result.hasErrors() && isValid) {
+            // エラーなし
+            Todo todo = todoData.toEntity();
+            todoRepository.saveAndFlush(todo);
+            mv.setViewName("redirect:/todo");
+        
+        } else {
+            // エラーあり
+            // model.addAttribute("todoData", todoData);
+            mv.setViewName("todoForm");
+        }
+        return mv;
+    }
+</pre>
+		</div>
+</body>
+</html>
