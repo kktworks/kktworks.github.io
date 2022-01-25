@@ -1,20 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>kktworks</title>
-<link rel="stylesheet" type="text/css" href="style/style.css"/>
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-<link rel="stylesheet" type="text/css" href="style/iwas_source.css" />
-<style>
-pre.prettyprint {
-margin:0px;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>kktworks</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/iwas_source.css" />
+    <style>
+        pre.prettyprint {
+            margin: 0px;
+        }
+    </style>
 </head>
+
 <body>
-    <a href="resources/workspace_20210327.zip" download="workspace_20210327.zip">Spring Bootで始めるWebアプリケーション開発入門(実践編)　掲載ソースリスト(2021/03/27)</a>
+    <a href="resources/workspace_20210327.zip" download="workspace_20210327.zip">Spring
+        Bootで始めるWebアプリケーション開発入門(実践編)　掲載ソースリスト(2021/03/27)</a>
+        
+    <p>■2022/1/25 訂正：<br>
+        「はじめに」>「本書開始の準備」で手順が１つ抜けていました。実行には差し支えないのですが、ソースプログラムの実態がどこにあるのかわかりにくくなるため以下のようにすることをお勧めします。<br>
+
+    <table border="1">
+        <tr>
+            <td>
+                ①上記サポートサイトからソースコードをダウンロードし、任意のフォルダへ解凍する。<br>
+                → c:¥temp へ解凍したとします<br>
+                ② STS を起動する。<br>
+                ③「ワークスペースとしてのディレクトリー選択」が表示される。<br>
+                前書では workspace を使いましたが、本書でも多くのプロジェクトを作成するので別にした方が良いでしょう。<br>
+                →本書では workspace2 を作成して使用します。<br>
+                <font color="red">
+                    >----- ↓追加 ----<br>
+                    ここで作成した workspace2 フォルダは、STSの直下に作成されます( C:¥sts-4.*.*.RELEASE\workspace2)<br>
+                    <br>
+                    ③-2<br>
+                    ①で解凍したTodolist7xを③で作成したworkspace2フォルダへコピーする。<br>
+                    <br>
+                    ----- ↑追加 ----<br>
+                </font>
+                <br>
+                ④ STS の画面が表示されたら、メニュー [ファイル(F)] > [インポート(I)...]を選択する。<br>
+                ⑤「インポート」ダイアログで [Maven]の[>]をクリック > [既存 Maven プロジェクト] > [次へ(N)]をクリックする。<br>
+                ⑥「 Maven プロジェクトのインポート」ダイアログで[参照(B)...]をクリックする。<br>
+                ⑦「 Select Root Folder 」ダイアログで、<b><strike>①で解凍した Todolist7x </strike></b>➡<font color="red">
+                    ③-2でコピーしたworkspace2/Todolist7x</font>を選択 > [フォルダーの選択]をクリックする。<br>
+                ⑧ルート・ディレクトリ(R)に Todolist7x が設定されていることを確認して[完了(F)]をクリックする。<br>
+                ⑨パッケージ・エクスプローラーに Todolist7x が表示される。<br>
+                ⑩ Todolist7x を起動し、 http://localhost:8080/todo へアクセスする。<br>
+            </td>
+        </tr>
+    </table>
+
     <p>問い合わせ先：<a href="mailto:kktworks@gmail.com">kktworks@gmail.com</a></p>
     <hr>
+    <p>
 </body>
+
 </html>
