@@ -1,25 +1,101 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>kktworks</title>
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/iwas_source.css" />
-    <style>
-        pre.prettyprint {
-            margin: 0px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>kktworks</title>
+<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../style/iwas_source.css" />
+<style>
+pre.prettyprint {
+margin:0px;
+}
+</style>
 </head>
-
 <body>
-    <a href="resources/workspace_20210327.zip" download="workspace_20210327.zip">Spring
-        Bootで始めるWebアプリケーション開発入門(実践編)　掲載ソースリスト(2021/03/27)</a>
+    <a href="resources/workspace_20220201.zip" download="workspace_20220201.zip">Spring
+        Bootで始めるWebアプリケーション開発入門(実践編)　掲載ソースリスト(2022/02/01)</a>
         
+    <p>■2022/2/1 訂正：<br>
+「22. アクセス制御とエラー処理」のソースリストTodolist15に誤りがあったので、以下のように訂正します。上記ダウンロードファイルには反映済です。
+◇com.example.todolist.form.TodoData(Todolist15\src\main\java\com\example\todolist\form\TodoData.java)
+<div class="border_1">
+<pre class="prettyprint">
+:
+public class TodoData {
+    private Integer id;
+    <b>private Integer ownerId; // !!!この行を追加!!!</b>
+    
+    @NotBlank
+    private String title;
+:
+    public Todo toEntity() {
+        Todo todo = new Todo();
+        // ToDo
+        todo.setId(id);
+        <b>todo.setOwnerId(ownerId); // !!!この行を追加!!!</b>
+        todo.setTitle(title);
+:
+        return todo;
+    }
+    public TodoData(Todo todo, List<AttachedFile> attachedFiles) {
+        // Todo部分
+        this.id = todo.getId();
+        <b>this.ownerId = todo.getOwnerId(); // !!!この行を追加!!!</b>
+        this.title = todo.getTitle();
+:
+    }
+:
+}
+
+</pre>
+</div>
+<br>
+◇todoForm.html(Todolist15\src\main\resources\templates\todoForm.html)
+<div class="border_1">
+<pre class="prettyprint">
+:
+■ToDo
+&lt;!-- ToDO入力エリア --&gt;
+&lt;table&gt;
+  &lt;!-- id --&gt;
+  &lt;tr&gt;
+    &lt;th&gt;id&lt;/th&gt;
+    &lt;td&gt;
+      &lt;span th:text="*{id}"&gt;&lt;/span&gt;
+      &lt;!-- 更新 のために必要 --&gt;
+      &lt;input type="hidden" th:field="*{id}"&gt;
+      <B>&lt;input type="hidden" th:field="*{ownerId}"&gt;&lt;!--  !!!この行を追加!!! --&gt;</b>
+    &lt;/td&gt;
+:
+</pre>
+</div>
+</pre>
+</div>
+<br>
+◇OperationMessages_en.properties(Todolist15\src\main\resources\i18n\OperationMessages_en.properties)
+<div class="border_1">
+<pre class="prettyprint">
+<br>
+#最後に以下の１行を追加
+msg.e.operation_error=Not the operator's todo
+<br>
+</pre>
+</div>
+<br>
+◇OperationMessages_ja.properties(Todolist15\src\main\resources\i18n\OperationMessages_ja.properties)
+<div class="border_1">
+<pre class="prettyprint">
+<br>
+#最後に以下の１行を追加
+msg.e.operation_error=操作者のTodoではありません。
+<br>
+</pre>
+</div>
+→この行はプログラムの異常終了を避けるために追加しています。実際にこれらのメッセージが表示されるわけではありません。
+
     <p>■2022/1/25 訂正：<br>
-        「はじめに」>「本書開始の準備」で手順が１つ抜けていました。実行には差し支えないのですが、ソースプログラムの実態がどこにあるのかわかりにくくなるため以下のようにすることをお勧めします。<br>
+        「はじめに」>「本書開始の準備」で手順が１つ抜けていました。実行には差し支えありませんが、ソースプログラムの実体がどこにあるのかわかりにくくなるので、以下のようにすることをお勧めします。<br>
 
     <table border="1">
         <tr>
