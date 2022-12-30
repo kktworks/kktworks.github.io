@@ -13,13 +13,22 @@ margin:0px;
 </style>
 </head>
 <body>
-    <a href="resources/workspace2_20221230.zip" download="workspace2_20221230.zip">Spring Boot3で始めるWebアプリケーション開発入門(応用編)　掲載ソースリスト(2022/12/30)</a>
+    <a href="resources/workspace2_20221230_2.zip" download="workspace2_20221230_2.zip">Spring Boot3で始めるWebアプリケーション開発入門(応用編)　掲載ソースリスト(2022/12/30)</a>
     <hr>
-		<p>■2022/12/29 更新：<br>
+		<p>■2022/12/29 更新：</p>
 掲載ソースのTodolist15一部差替
 <hr>
-    <p>■2022/2/1 訂正：<br>
-「22. アクセス制御とエラー処理」のソースリストTodolist15に誤りがあったので、以下のように訂正します。上記ダウンロードファイルには反映済です。
+    <p>■2022/12/30 補足：</p>
+「21.3 表示データの限定」<br>
+ 本節でtodoテーブルにowner_idを追加しましたが、この情報はid(todo.id)と同様に
+<ul>
+  <li>更新画面表示時todoForm.htmlへセットする</li>
+  <li>[更新]ボタンクリック時、todoForm.htmlから取り込みtodoテーブルを更新する</li>
+</ul>
+という処理を行う必要があります。<br>
+そのため、以下のコードを追加してください。<br>
+→追加しないとToDoを更新した際にowner_idがnullになるため、それ以降表示されなくなってしまいます。<br>
+<br>
 ◇com.example.todolist.form.TodoData(Todolist15\src\main\java\com\example\todolist\form\TodoData.java)
 <div class="border_1">
 <pre class="prettyprint">
