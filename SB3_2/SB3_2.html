@@ -13,10 +13,125 @@ margin:0px;
 </style>
 </head>
 <body>
-    <a href="resources/workspace2_20221229.zip" download="workspace2_20221229.zip">Spring Boot3で始めるWebアプリケーション開発入門(応用編)　掲載ソースリスト(2022/12/29)</a>
+    <a href="resources/workspace2_20221230.zip" download="workspace2_20221230.zip">Spring Boot3で始めるWebアプリケーション開発入門(応用編)　掲載ソースリスト(2022/12/30)</a>
     <hr>
 		<p>■2022/12/29 更新：<br>
 掲載ソースのTodolist15一部差替
+<hr>
+    <p>■2022/2/1 訂正：<br>
+「22. アクセス制御とエラー処理」のソースリストTodolist15に誤りがあったので、以下のように訂正します。上記ダウンロードファイルには反映済です。
+◇com.example.todolist.form.TodoData(Todolist15\src\main\java\com\example\todolist\form\TodoData.java)
+<div class="border_1">
+<pre class="prettyprint">
+:
+public class TodoData {
+    private Integer id;
+    <b>private Integer ownerId; // !!!この行を追加!!!</b>
+    
+    @NotBlank
+    private String title;
+:
+    public Todo toEntity() {
+        Todo todo = new Todo();
+        // ToDo
+        todo.setId(id);
+        <b>todo.setOwnerId(ownerId); // !!!この行を追加!!!</b>
+        todo.setTitle(title);
+:
+        return todo;
+    }
+    public TodoData(Todo todo, List<AttachedFile> attachedFiles) {
+        // Todo部分
+        this.id = todo.getId();
+        <b>this.ownerId = todo.getOwnerId(); // !!!この行を追加!!!</b>
+        this.title = todo.getTitle();
+:
+    }
+:
+}
+
+</pre>
+</div>
+<br>
+◇todoForm.html(Todolist15\src\main\resources\templates\todoForm.html)
+<div class="border_1">
+<pre class="prettyprint">
+:
+■ToDo
+&lt;!-- ToDO入力エリア --&gt;
+&lt;table&gt;
+  &lt;!-- id --&gt;
+  &lt;tr&gt;
+    &lt;th&gt;id&lt;/th&gt;
+    &lt;td&gt;
+      &lt;span th:text="*{id}"&gt;&lt;/span&gt;
+      &lt;!-- 更新 のために必要 --&gt;
+      &lt;input type="hidden" th:field="*{id}"&gt;
+      <B>&lt;input type="hidden" th:field="*{ownerId}"&gt;&lt;!--  !!!この行を追加!!! --&gt;</b>
+    &lt;/td&gt;
+:
+</pre>
+</div>
+</pre>
+</div>
+<br>
+◇OperationMessages_en.properties(Todolist15\src\main\resources\i18n\OperationMessages_en.properties)
+<div class="border_1">
+<pre class="prettyprint">
+<br>
+#最後に以下の１行を追加
+msg.e.operation_error=Not the operator's todo
+<br>
+</pre>
+</div>
+<br>
+◇OperationMessages_ja.properties(Todolist15\src\main\resources\i18n\OperationMessages_ja.properties)
+<div class="border_1">
+<pre class="prettyprint">
+<br>
+#最後に以下の１行を追加
+msg.e.operation_error=操作者のTodoではありません。
+<br>
+</pre>
+</div>
+→この行はプログラムの異常終了を避けるために追加しています。実際にこれらのメッセージが表示されるわけではありません。
+
+    <hr>
+		<p>■2022/12/30 訂正：<br>
+「13.2 フラグメント(th:fragment/th:insert)」<br>
+フラグメントにする部分は~{ビュー名::th:fragmentで付けた名前}のように<b>~{}</b>で囲んでください。<br>
+~{}で囲まない記法はdeprecated(非推奨)になり、将来廃止される可能性があります。<br>
+<a href="https://www.thymeleaf.org/doc/articles/thymeleaf31whatsnew.html">Thymeleaf 3.1: What’s new and how to migrate</a><br>
+&gt; 2.6 Deprecation of unwrapped fragment expressions 参照<br> 
+よってリスト13-9, 13-10はそれぞれ以下のようにしてください。<br> 
+<br> 
+【リスト13-9】src/main/resources/templates/todoList.html(変更箇所)
+<div class="border_1">
+<pre class="prettyprint">
+&lt;!DOCTYPE html&gt;
+      :
+  &lt;body&gt;
+    &lt;!-- 操作メッセージエリア --&gt;
+    &lt;div th:replace="<b>~{fragments :: msg_area}</b>"&gt;&lt;/div&gt;
+    &lt;!-- 検索条件入力エリア --&gt;
+    &lt;form th:action="@{/}" method="post" th:object="${todoQuery}"&gt;
+      :
+</pre>
+</div>
+<br> 
+【リスト13-10】src/main/resources/templates/todoForm.html(変更箇所)
+<div class="border_1">
+<pre class="prettyprint">
+  &lt;!DOCTYPE html&gt;
+      :
+  &lt;body&gt;
+    &lt;!-- 操作メッセージエリア --&gt;
+    &lt;div th:replace="<b>~{fragments :: msg_area}</b>"&gt;&lt;/div&gt;
+    &lt;!-- 入力フォーム --&gt;
+    &lt;form th:action="@{/}" method="post" th:object="${todoData}"&gt;
+      :
+</pre>
+</div>
     <hr>
     <p>問い合わせ先：<a href="mailto:kktworks@gmail.com">kktworks@gmail.com</a></p>
 <p>Twitter:<a href="https://twitter.com/kktworks1?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @kktworks1</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
